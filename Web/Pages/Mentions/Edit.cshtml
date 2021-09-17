@@ -1,0 +1,80 @@
+﻿@page
+@model Web.Pages.Mentions.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Mention</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Mention.ID" />
+            <div class="form-group">
+                <label asp-for="Mention.UserID" class="control-label"></label>
+                <input asp-for="Mention.UserID" class="form-control" />
+                <span asp-validation-for="Mention.UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.Title" class="control-label"></label>
+                <input asp-for="Mention.Title" class="form-control" />
+                <span asp-validation-for="Mention.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.Description" class="control-label"></label>
+                <input asp-for="Mention.Description" class="form-control" />
+                <span asp-validation-for="Mention.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.MentionCategory" class="control-label"></label>
+                <select asp-for="Mention.MentionCategory" class="form-control"></select>
+                <span asp-validation-for="Mention.MentionCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.Image" class="control-label"></label>
+                <input asp-for="Mention.Image" class="form-control" />
+                <span asp-validation-for="Mention.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.Likes" class="control-label"></label>
+                <input asp-for="Mention.Likes" class="form-control" />
+                <span asp-validation-for="Mention.Likes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.Views" class="control-label"></label>
+                <input asp-for="Mention.Views" class="form-control" />
+                <span asp-validation-for="Mention.Views" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.CreateDate" class="control-label"></label>
+                <input asp-for="Mention.CreateDate" class="form-control" />
+                <span asp-validation-for="Mention.CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mention.LastModified" class="control-label"></label>
+                <input asp-for="Mention.LastModified" class="form-control" />
+                <span asp-validation-for="Mention.LastModified" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Mention.Status" /> @Html.DisplayNameFor(model => model.Mention.Status)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

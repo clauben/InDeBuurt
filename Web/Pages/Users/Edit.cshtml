@@ -1,0 +1,48 @@
+﻿@page
+@model Web.Pages.Users.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="User.ID" />
+            <div class="form-group">
+                <label asp-for="User.EmailAddress" class="control-label"></label>
+                <input asp-for="User.EmailAddress" class="form-control" />
+                <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.UserName" class="control-label"></label>
+                <input asp-for="User.UserName" class="form-control" />
+                <span asp-validation-for="User.UserName" class="text-danger"></span>
+            </div>
+            @if (Model.User.UserRole > 0)
+            {
+                <div class="form-group">
+                <label asp-for="User.UserStatus" class="control-label"></label>
+                <select asp-for="User.UserStatus" asp-items="Html.GetEnumSelectList<UserStatus>()" class="form-control"></select>
+                <span asp-validation-for="User.UserStatus" class="text-danger"></span>
+            </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,90 @@
+﻿@page
+@model Web.Pages.Mentions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].MentionCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].Likes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].Views)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].LastModified)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mention[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Mention) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MentionCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Likes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Views)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModified)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
