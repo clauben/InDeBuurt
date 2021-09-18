@@ -39,6 +39,12 @@ namespace ApplicationCore.Entities
 		[Display(Name = "Account role")]
 		public UserRole UserRole { get; set; } = UserRole.Resident;
 
+		[Required]
+		public byte[] PasswordSalt { get; set; }
+
+		[Required]
+		public byte[] PasswordHash { get; set; }
+
 		public ICollection<Mention> Mentions { get; set; }
 		public ICollection<Comment> Comments { get; set; }
 		public UserDetail UserDetail { get; set; }

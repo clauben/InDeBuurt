@@ -5,11 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Exeptions\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Constants\" />
-    <Folder Include="Exeptions\" />
     <Folder Include="Specifications\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
   </ItemGroup>
 
 </Project>
