@@ -26,7 +26,6 @@ namespace ApplicationCore.Entities
 		[Display(Name = "Email")]
 		public string EmailAddress { get; set; }
 
-		[Required]
 		[StringLength(50, MinimumLength = 3)]
 		[Display(Name = "Gebruikersnaam")]
 		public string UserName { get; set; }

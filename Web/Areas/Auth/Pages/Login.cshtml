@@ -1,0 +1,68 @@
+﻿@page
+@model Web.Areas.Auth.Pages.Login.LoginModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row mt-3">
+            </div>
+
+            <div class="row justify-content-center mt-3">
+                
+                <div class="col-sm4">
+                </div>
+
+                <div class="col-sm4">
+                    <div class="jumbotron">
+                        <h1 class="display-4">InDeBuurt</h1>
+                        <hr class="my-4">
+                        <p>Provide your information below to log in</p>
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email adres</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Wachtwoord</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-success">Aanmelden</button>
+                            <button type="submit" class="btn btn-warning">Nieuwe Account Maken</button>
+                            <hr class="my-2">
+                            <p><a href="/Index">Wachtwoord vergeten</a></p>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-sm4">
+                </div>
+
+            </div>
+
+            <div class="Row">
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - InDeBuurt - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

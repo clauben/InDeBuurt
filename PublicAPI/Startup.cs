@@ -29,23 +29,15 @@ namespace PublicAPI
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
-
-			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+			services.AddDbContext<WebContext>(options =>
+					options.UseSqlServer(Configuration.GetConnectionString("WebContext")));
 			services.AddControllersWithViews();
-
 			services.AddMvc();
-
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 			});
-
-
 			services.AddCors();
 			services.AddControllers();
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -116,7 +108,9 @@ namespace PublicAPI
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
-				c.SwaggerEndpoint("v1/swagger.json", "My API V1");
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+				c.InjectStylesheet("/swagger/custom.css");
+				c.RoutePrefix = String.Empty;
 			});
 
 			app.UseEndpoints(endpoints =>
