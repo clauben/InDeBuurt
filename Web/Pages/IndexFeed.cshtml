@@ -1,0 +1,37 @@
+﻿@page
+@model IndexFeedModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@foreach(var item in Model.Mention)
+{
+<p>
+    <div class="container">
+        <div class="row justify-content-center">
+
+                <div class="card text-center">
+                    <div class="card-header">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </div>
+                    <div class="card-body">
+                        <img src="@Html.DisplayFor(modelItem => item.Image)" />
+                        <hr />
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.MentionCategory)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <hr />
+                        Likes: @Html.DisplayFor(modelItem => item.Likes) | 
+                        Views: @Html.DisplayFor(modelItem => item.Views)
+                    </div>
+                    <div class="card-footer text-muted">
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                        <a href="/Mentions/Create" class="btn btn-primary">Add a comment</a>
+                        <a href="/Mentions/Create" class="btn btn-danger">Delete</a>
+                    </div>
+                   
+
+            </div>
+        </div>
+    </div>
+</p>
+}

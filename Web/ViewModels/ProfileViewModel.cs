@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PublicAPI.Models
+namespace Web.ViewModels
 {
-	public class UserModel
+	public class ProfileViewModel
 	{
 		public int ID { get; set; }
 		public string FirstName { get; set; }

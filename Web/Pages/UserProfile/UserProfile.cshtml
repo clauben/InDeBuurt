@@ -1,8 +1,8 @@
-﻿@page
-@model Web.Pages.Users.EditModel
+﻿@page "/userprofile"
+@model Web.Pages.UserProfile.UserProfileModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Profile";
 }
 
 <p></p>
@@ -37,35 +37,27 @@
                                 <div class="col-md-4">
                                     <form method="post">
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                        <input type="hidden" asp-for="User.ID" />
+                                        <input type="hidden" asp-for="ProfileViewModel".ID" />
                                         <div class="form-group">
-                                            <label asp-for="User.FirstName" class="control-label"></label>
-                                            <input asp-for="User.FirstName" class="form-control" />
-                                            <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                                            <label asp-for="ProfileViewModel.FirstName" class="control-label"></label>
+                                            <input asp-for="ProfileViewModel.FirstName" class="form-control" />
+                                            <span asp-validation-for="ProfileViewModel.FirstName" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label asp-for="User.LastName" class="control-label"></label>
-                                            <input asp-for="User.LastName" class="form-control" />
-                                            <span asp-validation-for="User.LastName" class="text-danger"></span>
+                                            <label asp-for="ProfileViewModel.LastName" class="control-label"></label>
+                                            <input asp-for="ProfileViewModel.LastName" class="form-control" />
+                                            <span asp-validation-for="ProfileViewModel.LastName" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label asp-for="User.EmailAddress" class="control-label"></label>
-                                            <input asp-for="User.EmailAddress" class="form-control" />
-                                            <span asp-validation-for="User.EmailAddress" class="text-danger"></span>
+                                            <label asp-for="ProfileViewModel.EmailAddress" class="control-label"></label>
+                                            <input asp-for="ProfileViewModel.EmailAddress" class="form-control" />
+                                            <span asp-validation-for="ProfileViewModel.EmailAddress" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label asp-for="User.PhoneNumber" class="control-label"></label>
-                                            <input asp-for="User.PhoneNumber" class="form-control" />
-                                            <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+                                            <label asp-for="ProfileViewModel.PhoneNumber" class="control-label"></label>
+                                            <input asp-for="ProfileViewModel.PhoneNumber" class="form-control" />
+                                            <span asp-validation-for="ProfileViewModel.PhoneNumber" class="text-danger"></span>
                                         </div>
-                                        @if (Model.User.UserRole > 0)
-                                        {
-                                            <div class="form-group">
-                                                <label asp-for="User.UserStatus" class="control-label"></label>
-                                                <select asp-for="User.UserStatus" asp-items="@Html.GetEnumSelectList<UserStatus>()" class="form-control"></select>
-                                                <span asp-validation-for="User.UserStatus" class="text-danger"></span>
-                                            </div>
-                                        }
                                         <div class="form-group">
                                             <input type="submit" value="Save" class="btn btn-primary" />
                                         </div>

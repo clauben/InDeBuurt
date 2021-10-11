@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Web.Pages.Authentication
+namespace Web.Pages.Users
 {
-    public class LoginModel : PageModel
+    public class NotificationsModel : PageModel
     {
         public void OnGet()
         {

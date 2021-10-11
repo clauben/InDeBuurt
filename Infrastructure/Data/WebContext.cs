@@ -11,7 +11,7 @@ namespace Infrastruture.Data
 		}
 
 		public DbSet<User> Users { get; set; }
-		public DbSet<UserDetail> UserDetails { get; set; }
+		//public DbSet<UserDetail> UserDetails { get; set; }
 		public DbSet<Mention> Mentions { get; set; }
 		public DbSet<Comment> Comments { get; set; }
 
@@ -19,7 +19,7 @@ namespace Infrastruture.Data
 		{
 			modelBuilder.Entity<Comment>().ToTable("Comment");
 			modelBuilder.Entity<Mention>().ToTable("Mention");
-			modelBuilder.Entity<UserDetail>().ToTable("UserDetail");
+			//modelBuilder.Entity<UserDetail>().ToTable("UserDetail");
 			modelBuilder.Entity<User>().ToTable("User");
 		}
 	}

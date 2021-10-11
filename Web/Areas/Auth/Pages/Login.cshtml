@@ -9,6 +9,16 @@
     <title>@ViewData["Title"] - Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <style type="text/css">
+         body {
+            background-image: url('../images/neighbors.jpg');
+            background-repeat:no-repeat;
+            background-size:cover;
+            margin: 0;
+        }
+    </style>
+
 </head>
 <body>
     <div class="container">
@@ -25,22 +35,24 @@
                     <div class="jumbotron">
                         <h1 class="display-4">InDeBuurt</h1>
                         <hr class="my-4">
-                        <p>Provide your information below to log in</p>
-                        <form>
+                        <p>Log in met uw informatie</p>
+
+                        <form method="post" asp-page-handler="Auth">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Email adres</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <label asp-for="UserAuth.EmailAddress">Email adres</label>
+                                <input asp-for="UserAuth.EmailAddress" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">Wij delen uw e-mailadres met niemand.</small>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Wachtwoord</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <label asp-for="UserAuth.Password">Wachtwoord</label>
+                                <input asp-for="UserAuth.Password" class="form-control" placeholder="Password">
                             </div>
                             <button type="submit" class="btn btn-success">Aanmelden</button>
-                            <button type="submit" class="btn btn-warning">Nieuwe Account Maken</button>
+                            <a type="submit" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Nieuwe Account Maken</a>
                             <hr class="my-2">
-                            <p><a href="/Index">Wachtwoord vergeten</a></p>
+                            <p><a href="">Wachtwoord vergeten</a></p>
                         </form>
+
                     </div>
                 </div>
 
@@ -52,10 +64,47 @@
             <div class="Row">
             </div>
 
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Registreren</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" method="post" asp-page-handler="Register">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input asp-for="UserRegister.FirstName" class="form-control" placeholder="Voornaam">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="UserRegister.LastName" class="form-control" placeholder="Achternaam">
+                                    </div>
+                                </div>
+                                <p></p>
+                                <div class="form-group">
+                                <input asp-for="UserRegister.EmailAddress" class="form-control" placeholder="E-mailadres">
+                            </div>
+                                <div class="form-group">
+                                <input asp-for="UserRegister.Password" class="form-control" placeholder="Nieuw wachtwoord">
+                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <small id="registerInfo" class="form-text text-muted">Door op Registreren te klikken, ga je akkoord met onze Voorwaarden.</small>
+                            <button id="confirm" type="submit" class="btn btn-success">Registreren</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
+
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted">
         <div class="container">
             &copy; 2021 - InDeBuurt - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
@@ -64,5 +113,14 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $('#confirm').on('click', function (event) {
+            event.preventDefault();
+
+            $("form.form-horizontal").submit();
+
+            return false;
+        })
+    </script>
 </body>
 </html>

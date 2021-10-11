@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 using PublicAPI.Interfaces;
+using PublicAPI.Services;
+using ApplicationCore.Entities;
 
 namespace PublicAPI
 {
@@ -38,6 +40,9 @@ namespace PublicAPI
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 			});
+
+
+			services.AddScoped<IUserService, UserService>();
 			services.AddCors();
 			services.AddControllers();
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -54,6 +59,10 @@ namespace PublicAPI
 				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 			})
+			.AddCookie(x => 
+			{ 
+				x.Cookie.Name = "IDB.API";
+			})
 			.AddJwtBearer(x =>
 			{
 				x.Events = new JwtBearerEvents
@@ -62,7 +71,7 @@ namespace PublicAPI
 					{
 						IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
 						int userId = int.Parse(context.Principal.Identity.Name);
-						ApplicationCore.Entities.User user = userService.GetById(userId);
+						User user = userService.GetById(userId);
 						if (user == null)
 						{
 							// return unauthorized if user no longer exists

@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace PublicAPI.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
-            var user = _userService.Authenticate(model.UserName, model.Password);
+            var user = _userService.Authenticate(model.EmailAddress, model.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -62,9 +63,11 @@ namespace PublicAPI.Controllers
             // return basic user info and authentication token
             return Ok(new
             {
-                Id = user.ID,
-                Username = user.UserName,
-                Token = tokenString
+                //Id = user.ID,
+                //EmailAddress = user.EmailAddress,
+                //FirstName = user.FirstName,
+                Token = tokenString,
+                Expiration = DateTime.UtcNow.AddDays(7)
             });
         }
 
