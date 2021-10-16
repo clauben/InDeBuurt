@@ -5,11 +5,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+</style>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<p></p>
+<div class="table-responsive">
 <table class="table">
     <thead>
         <tr>
@@ -62,7 +68,7 @@
                 @Html.DisplayFor(modelItem => item.MentionCategory)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                <img src="@Html.DisplayFor(modelItem => item.Image)" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Likes)
@@ -80,11 +86,11 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
                 <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+</div>

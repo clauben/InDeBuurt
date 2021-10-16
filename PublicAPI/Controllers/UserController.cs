@@ -63,9 +63,9 @@ namespace PublicAPI.Controllers
             // return basic user info and authentication token
             return Ok(new
             {
-                //Id = user.ID,
+                Id = user.ID,
                 //EmailAddress = user.EmailAddress,
-                //FirstName = user.FirstName,
+                FirstName = user.FirstName,
                 Token = tokenString,
                 Expiration = DateTime.UtcNow.AddDays(7)
             });

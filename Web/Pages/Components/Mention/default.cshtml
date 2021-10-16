@@ -1,0 +1,50 @@
+﻿@using Web.ViewModels
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@model CreateMentionViewModel
+
+<p>
+<div class="row justify-content-md-center">
+<div class="col-sm-8">
+    <div class="card">
+        <div class="card-body">
+            <a href="" type="submit" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Plaatsen</a>
+        </div>
+    </div>
+    </div>
+    </div>
+</p>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registreren</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form  id="mentionform" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="UserID" value="@HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserID").Value" class="form-control" placeholder="UserID">
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Title" class="form-control" placeholder="Titel">
+                    </div>
+                    <div class="form-group">
+                        <select asp-for="MentionCategory" asp-items="@Html.GetEnumSelectList<Web.Enums.MentionCategory>()" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Description" class="form-control" placeholder="Beschrijving">
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Image" class="form-control" placeholder="Afbeelding">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm" type="submit" class="btn btn-success">Plaatsen</button>
+            </div>
+        </div>
+    </div>
+</div>

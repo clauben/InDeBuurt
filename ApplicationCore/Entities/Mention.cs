@@ -18,8 +18,7 @@ namespace ApplicationCore.Entities
 	{
 		public int ID { get; set; }
 
-		[Required]
-		public string UserID { get; set; }
+		public int? UserID { get; set; }
 
 		[Required]
 		[StringLength(200)]

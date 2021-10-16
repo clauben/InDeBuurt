@@ -8,29 +8,35 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ApplicationCore.Entities;
 using Infrastruture.Data;
+using Web.Interfaces;
+using Web.ViewModels;
 
 namespace Web.Pages.Mentions
 {
     public class EditModel : PageModel
     {
-        private readonly Infrastruture.Data.WebContext _context;
+		private readonly IMentionService _mention;
 
-        public EditModel(Infrastruture.Data.WebContext context)
+		public EditModel(IMentionService mention)
         {
-            _context = context;
-        }
+			_mention = mention;
+		}
 
         [BindProperty]
-        public Mention Mention { get; set; }
+        public UpdateMentionViewModel UpdateMention { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        [BindProperty]
+        public MentionViewModel Mention { get; set; } = new MentionViewModel();
+
+
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Mention = await _context.Mentions.FirstOrDefaultAsync(m => m.ID == id);
+            Mention = await _mention.GetMentionById(id);
 
             if (Mention == null)
             {
@@ -48,30 +54,10 @@ namespace Web.Pages.Mentions
                 return Page();
             }
 
-            _context.Attach(Mention).State = EntityState.Modified;
+            await _mention.UpdateMention(Mention);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MentionExists(Mention.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool MentionExists(int id)
-        {
-            return _context.Mentions.Any(e => e.ID == id);
         }
     }
 }

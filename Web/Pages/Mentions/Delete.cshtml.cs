@@ -7,51 +7,43 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ApplicationCore.Entities;
 using Infrastruture.Data;
+using Web.Interfaces;
+using Web.ViewModels;
 
 namespace Web.Pages.Mentions
 {
     public class DeleteModel : PageModel
     {
-        private readonly Infrastruture.Data.WebContext _context;
+		private readonly IMentionService _mention;
 
-        public DeleteModel(Infrastruture.Data.WebContext context)
+		public DeleteModel(IMentionService mention)
         {
-            _context = context;
-        }
+			_mention = mention;
+		}
 
         [BindProperty]
-        public Mention Mention { get; set; }
+        public MentionViewModel Mention { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
+        public async Task<IActionResult> OnGetAsync(int id)
+        { 
             if (id == null)
             {
                 return NotFound();
             }
 
-            Mention = await _context.Mentions.FirstOrDefaultAsync(m => m.ID == id);
+            Mention = await _mention.GetMentionById(id);
 
             if (Mention == null)
             {
                 return NotFound();
             }
-            return Page();
+        return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            Mention = await _context.Mentions.FindAsync(id);
-
-            if (Mention != null)
-            {
-                _context.Mentions.Remove(Mention);
-                await _context.SaveChangesAsync();
-            }
+            await _mention.Delete(id);
 
             return RedirectToPage("./Index");
         }

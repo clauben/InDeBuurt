@@ -11,58 +11,44 @@
     <link rel="stylesheet" href="~/css/site.css" />
 
     <style type="text/css">
-         body {
+        body {
             background-image: url('../images/neighbors.jpg');
-            background-repeat:no-repeat;
-            background-size:cover;
+            background-repeat: no-repeat;
+            background-size: cover;
             margin: 0;
         }
     </style>
 
 </head>
-<body>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <div class="row mt-3">
+<body class="d-flex h-100">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <main role="main" class="px-3">
+
+
+            <div class="card card-block mx-auto" style="width: 22rem;">
+                <div class="card-body bg-light">
+                    <h1 class="display-4">InDeBuurt</h1>
+                    <hr class="my-4">
+                    <p>Log in met uw informatie</p>
+
+                    <form method="post" asp-page-handler="Auth">
+                        <div class="form-group">
+                            <label asp-for="UserAuth.EmailAddress">Email adres</label>
+                            <input asp-for="UserAuth.EmailAddress" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">Wij delen uw e-mailadres met niemand.</small>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="UserAuth.Password">Wachtwoord</label>
+                            <input asp-for="UserAuth.Password" class="form-control" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-success">Aanmelden</button>
+                        <a type="submit" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Nieuwe Account Maken</a>
+                        <hr class="my-2">
+                        <p><a href="">Wachtwoord vergeten</a></p>
+                    </form>
+                </div>
             </div>
 
-            <div class="row justify-content-center mt-3">
-                
-                <div class="col-sm4">
-                </div>
-
-                <div class="col-sm4">
-                    <div class="jumbotron">
-                        <h1 class="display-4">InDeBuurt</h1>
-                        <hr class="my-4">
-                        <p>Log in met uw informatie</p>
-
-                        <form method="post" asp-page-handler="Auth">
-                            <div class="form-group">
-                                <label asp-for="UserAuth.EmailAddress">Email adres</label>
-                                <input asp-for="UserAuth.EmailAddress" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small id="emailHelp" class="form-text text-muted">Wij delen uw e-mailadres met niemand.</small>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="UserAuth.Password">Wachtwoord</label>
-                                <input asp-for="UserAuth.Password" class="form-control" placeholder="Password">
-                            </div>
-                            <button type="submit" class="btn btn-success">Aanmelden</button>
-                            <a type="submit" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Nieuwe Account Maken</a>
-                            <hr class="my-2">
-                            <p><a href="">Wachtwoord vergeten</a></p>
-                        </form>
-
-                    </div>
-                </div>
-
-                <div class="col-sm4">
-                </div>
-
-            </div>
-
-            <div class="Row">
-            </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -85,11 +71,11 @@
                                 </div>
                                 <p></p>
                                 <div class="form-group">
-                                <input asp-for="UserRegister.EmailAddress" class="form-control" placeholder="E-mailadres">
-                            </div>
+                                    <input asp-for="UserRegister.EmailAddress" class="form-control" placeholder="E-mailadres">
+                                </div>
                                 <div class="form-group">
-                                <input asp-for="UserRegister.Password" class="form-control" placeholder="Nieuw wachtwoord">
-                            </div>
+                                    <input asp-for="UserRegister.Password" class="form-control" placeholder="Nieuw wachtwoord">
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">

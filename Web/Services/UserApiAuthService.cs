@@ -13,24 +13,22 @@ namespace Web.Services
 	public class UserApiAuthService : IUserApiAuthService
 	{
 		private readonly HttpClient _httpClient;
-		private readonly IMemoryCache _memoryCache;
 
-		public UserApiAuthService(HttpClient httpClient, IMemoryCache memoryCache)
+		public UserApiAuthService(HttpClient httpClient)
 		{
 			_httpClient = httpClient;
-			_memoryCache = memoryCache;
 		}
 
-		public async Task<string> RetrieveToken(LoginViewModel userAuth)
+		public async Task<Tuple<HttpResponseMessage, string, string, string, DateTime>> RetrieveToken(LoginViewModel userAuth)
 		{
 			DateTime expirationDate;
-			if (!_memoryCache.TryGetValue("Token", out string token))
-			{
-				HttpResponseMessage response = await _httpClient.PostAsJsonAsync("User/authenticate", userAuth);
-				(token, expirationDate) = await response.Content.ReadAsAsync<AuthResponse>();
-				_memoryCache.Set("Token", token, new DateTimeOffset(expirationDate));
-			}
-			return token;
+			string firstName;
+			string id;
+			string token;
+
+			HttpResponseMessage response = await _httpClient.PostAsJsonAsync("User/authenticate", userAuth);
+			(token, firstName, id, expirationDate) = await response.Content.ReadAsAsync<AuthResponse>();
+			return Tuple.Create(response, firstName, id, token, expirationDate);
 		}
 	}
 }

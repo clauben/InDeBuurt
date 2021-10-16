@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(WebContext))]
-    [Migration("20210922193813_ChangePhoneNumber")]
-    partial class ChangePhoneNumber
+    [Migration("20211014010914_NewMigration")]
+    partial class NewMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("MentionID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -92,11 +92,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserID1")
+                    b.Property<int?>("UserID")
                         .HasColumnType("int");
 
                     b.Property<int>("Views")
@@ -104,7 +100,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserID1");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Mention");
                 });
@@ -164,16 +160,14 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("ApplicationCore.Entities.User", null)
                         .WithMany("Comments")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Mention", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.User", null)
                         .WithMany("Mentions")
-                        .HasForeignKey("UserID1");
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Mention", b =>

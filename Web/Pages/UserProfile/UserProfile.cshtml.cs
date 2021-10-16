@@ -21,7 +21,9 @@ namespace Web.Pages.UserProfile
 		private readonly HttpClient _client;
 		private readonly IUserService _userService;
 
+		[BindProperty]
 		public ProfileViewModel ProfileViewModel { get; set; }
+
 		public UserProfileModel(HttpClient client, IUserService userService)
 		{
 			_client = client;
@@ -30,8 +32,20 @@ namespace Web.Pages.UserProfile
 
 		public async Task OnGetAsync()
         {
-			int id = 1;
+			int id = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserID").Value);
 			ProfileViewModel = await _userService.GetUser(id);
 		}
-    }
+
+		public async Task<IActionResult> OnPostSaveAsync()
+		{
+			await _userService.UpdateUser(ProfileViewModel);
+			return RedirectToPage("/IndexFeed");
+		}
+
+		public async Task OnPostDeleteAsync()
+		{
+			int id = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserID").Value);
+			await _userService.DeleteUser(id);
+		}
+	}
 }

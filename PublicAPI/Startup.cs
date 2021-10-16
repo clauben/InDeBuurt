@@ -43,6 +43,7 @@ namespace PublicAPI
 
 
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IMentionService, MentionService>();
 			services.AddCors();
 			services.AddControllers();
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

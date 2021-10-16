@@ -3,35 +3,57 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-@foreach(var item in Model.Mention)
+@await  Component.InvokeAsync("Mention")
+@foreach (var item in Model.Mention)
 {
-<p>
-    <div class="container">
-        <div class="row justify-content-center">
+    <p>
+
+        <div class="row justify-content-md-center">
+            <div class="col-sm-8">
 
                 <div class="card text-center">
                     <div class="card-header">
-                        @Html.DisplayFor(modelItem => item.Title)
+                        <div style="text-align: left;">
+                            @Html.DisplayFor(modelItem => item.Title) |
+                            @Html.DisplayFor(modelItem => item.MentionCategory)
+                            <div>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </div>
+                            <div>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </div>
+                        </div>
+                        
                     </div>
                     <div class="card-body">
+
                         <img src="@Html.DisplayFor(modelItem => item.Image)" />
                         <hr />
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.MentionCategory)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                        <hr />
-                        Likes: @Html.DisplayFor(modelItem => item.Likes) | 
-                        Views: @Html.DisplayFor(modelItem => item.Views)
+
+                        <span style="float: left;">
+                            Likes: @Html.DisplayFor(modelItem => item.Likes)
+                        </span>
+                        <a href="" class="btn btn-primary">leuk</a>
+                        <span style="float: right;">
+                            Views: @Html.DisplayFor(modelItem => item.Views)
+                        </span>
+
+
                     </div>
                     <div class="card-footer text-muted">
-                        @Html.DisplayFor(modelItem => item.CreateDate)
-                        <a href="/Mentions/Create" class="btn btn-primary">Add a comment</a>
-                        <a href="/Mentions/Create" class="btn btn-danger">Delete</a>
+
+                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">opmerking</span>
+                            </div>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                        </div>
                     </div>
-                   
+                </div>
 
             </div>
         </div>
-    </div>
-</p>
+
+    </p>
 }

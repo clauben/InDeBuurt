@@ -92,6 +92,9 @@ namespace PublicAPI.Services
             if (!string.IsNullOrWhiteSpace(userParam.LastName))
                 user.LastName = userParam.LastName;
 
+            if (!string.IsNullOrWhiteSpace(userParam.PhoneNumber))
+                user.PhoneNumber = userParam.PhoneNumber;
+
             // update password if provided
             if (!string.IsNullOrWhiteSpace(password))
             {

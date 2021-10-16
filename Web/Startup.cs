@@ -39,45 +39,37 @@ namespace Web
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddDbContext<WebContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("WebContext")));
-			services.AddControllersWithViews()
-				.AddRazorRuntimeCompilation();
 			services.AddRazorPages()
-				.AddRazorRuntimeCompilation();
-
-
-			services.AddMvc().AddRazorPagesOptions(options =>
-			{
+				.AddRazorRuntimeCompilation()
+				.AddRazorPagesOptions(options =>
+				{
 				options.Conventions.AddAreaPageRoute("Auth","/Login", "");
 			});
 
+			services.AddHttpContextAccessor();
 			services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-			services.AddMemoryCache();
+			services.AddTransient<UserApiAuthHandler>();
+
 			services.AddHttpClient<IUserApiAuthService, UserApiAuthService>()
 					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:44327/"));
 
-			services.AddTransient<UserApiAuthHandler>();
 			services.AddHttpClient<IUserService, UserService>()
 					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:44327/"))
 					.AddHttpMessageHandler<UserApiAuthHandler>();
 
-			//services.AddTransient<UserApiAuthHandler>()
-			//	.AddHttpClient("MyClient", s =>
-			//	{
-			//		s.BaseAddress = new Uri("https://localhost:44327/"); 
-
-			//	}).AddHttpMessageHandler<UserApiAuthHandler>();
-
+			services.AddHttpClient<IMentionService, MentionService>()
+					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:44327/"))
+					.AddHttpMessageHandler<UserApiAuthHandler>();	
 
 			// Add Authentication services
-			//services.AddHttpContextAccessor();
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
 				{
 					options.Cookie.HttpOnly = true;
+					options.Cookie.IsEssential = true;
 					options.Cookie.Name = "InDeBuurt";
 					options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-					options.Cookie.SameSite = SameSiteMode.Lax;
 				});
 		}
 
@@ -96,7 +88,6 @@ namespace Web
 				app.UseHsts();
 			}
 
-			app.UseCookiePolicy();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
@@ -105,8 +96,11 @@ namespace Web
 			app.UseAuthentication();
 			app.UseAuthorization();
 
+			app.UseStatusCodePages();
+
 			app.UseEndpoints(endpoints =>
 			{
+				endpoints.MapControllers();
 				endpoints.MapRazorPages();
 			});
 		}

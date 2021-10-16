@@ -7,23 +7,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ApplicationCore.Entities;
 using Infrastruture.Data;
+using Web.Interfaces;
+using Web.ViewModels;
 
 namespace Web.Pages.Mentions
 {
     public class IndexModel : PageModel
     {
-        private readonly Infrastruture.Data.WebContext _context;
+		private readonly IMentionService _mention;
 
-        public IndexModel(Infrastruture.Data.WebContext context)
+		public IndexModel(IMentionService mention)
         {
-            _context = context;
-        }
+			_mention = mention;
+		}
 
-        public IList<Mention> Mention { get;set; }
+        public IList<MentionViewModel> Mention { get;set; }
 
         public async Task OnGetAsync()
         {
-            Mention = await _context.Mentions.ToListAsync();
+            int id = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserID").Value);
+            Mention = await _mention.GetMentionByUserId(id);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
@@ -15,23 +14,28 @@ using System.Globalization;
 using System.Threading;
 using Web.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Http;
 
-namespace Web.Services
+namespace Web.Helpers
 {
 	public class UserApiAuthHandler : DelegatingHandler
     {
 		private readonly IUserApiAuthService _authService;
-		private readonly IMemoryCache _memoryCache;
+		private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public UserApiAuthHandler(IUserApiAuthService authService, IMemoryCache memoryCache)
+		public UserApiAuthHandler(IUserApiAuthService authService, IHttpContextAccessor httpContextAccessor)
         {
 			_authService = authService;
-			_memoryCache = memoryCache;
+			_httpContextAccessor = httpContextAccessor;
 		}
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            _memoryCache.TryGetValue("Token", out string token);
+            var token = _httpContextAccessor.HttpContext.User.Claims
+                .Where(c => c.Type == "Token")
+                .Select(c => c.Value)
+                .DefaultIfEmpty("Empty")
+                .First();
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return await base.SendAsync(request, cancellationToken);
         }

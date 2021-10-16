@@ -1,7 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastruture.Data
+namespace Web.Data
 {
 	public class WebContext : DbContext
 	{
