@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 
 namespace PublicAPI.Controllers
 {
-	[ApiController]
-	[Route("[controller]")]
-	public class FileUploadController : ControllerBase
-	{
-		private readonly IStorageService _storageService;
+	//[ApiController]
+	//[Route("[controller]")]
+	//public class FileUploadController : ControllerBase
+	//{
+	//	private readonly IStorageService _storageService;
 
-		public FileUploadController(IStorageService storageService)
-		{
-			_storageService = storageService;
-		}
+	//	public FileUploadController(IStorageService storageService)
+	//	{
+	//		_storageService = storageService;
+	//	}
 
-		[HttpGet]
-		public IActionResult Get()
-		{
-			return Ok();
-		}
+	//	[HttpGet]
+	//	public IActionResult Get()
+	//	{
+	//		return Ok();
+	//	}
 
-		[HttpPost]
-		[Route("upload")]
-		public IActionResult Upload(IFormFile file)
-		{
-			_storageService.Upload(file);
-			return Ok();
-		}
-	}
+	//	[HttpPost]
+	//	[Route("upload")]
+	//	public IActionResult Upload(IFormFile file)
+	//	{
+	//		_storageService.Upload(file);
+	//		return Ok();
+	//	}
+	//}
 }

@@ -39,7 +39,7 @@ namespace Web.Pages.UserProfile
 		public async Task<IActionResult> OnPostSaveAsync()
 		{
 			await _userService.UpdateUser(ProfileViewModel);
-			return RedirectToPage("/IndexFeed");
+			return RedirectToPage("/Index");
 		}
 
 		public async Task OnPostDeleteAsync()

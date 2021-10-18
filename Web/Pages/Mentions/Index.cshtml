@@ -6,88 +6,46 @@
 }
 
 <style>
-img {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 150px;
-}
+    img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 150px;
+    }
+
+    .btn {
+        float: left;
+        margin: 2px;
+    }
 </style>
 
-<p></p>
-<div class="table-responsive">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].MentionCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].Likes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].Views)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].LastModified)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Mention) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MentionCategory)
-            </td>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.Image)" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Likes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Views)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModified)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-danger">Edit</a>
-                <form method="post">
-                    <input type="hidden" asp-for="@item.ID" name="id"/>
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-            </td>
-        </tr>
+
+
+@foreach (var item in Model.Mention)
+{
+    <p>
+        <div class="jumbotron">
+            <h5 class="display-4">@Html.DisplayNameFor(model => model.Mention[0].Title): @Html.DisplayFor(modelItem => item.Title)</h5>
+            <p><img src="@Html.DisplayFor(modelItem => item.Image)" /></p>
+            <p>@Html.DisplayFor(modelItem => item.CreateDate)</p>
+            <p class="lead">@Html.DisplayNameFor(model => model.Mention[0].Description):</p>
+            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            <hr class="my-4">
+            <p>@Html.DisplayNameFor(model => model.Mention[0].Likes): @Html.DisplayFor(modelItem => item.Likes) | @Html.DisplayNameFor(model => model.Mention[0].Views): @Html.DisplayFor(modelItem => item.Views)</p>
+            <p class="lead">
+                <div>
+                    <div>
+                        <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a>
+                        <form method="post">
+                            <input type="hidden" asp-for="@item.ID" name="id" />
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </div>
+
+            </p>
+        </div>
+    </p>
+
 }
-    </tbody>
-</table>
-</div>
+

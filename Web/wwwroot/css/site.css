@@ -61,7 +61,15 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-color: powderblue !important;
+    transition: all 1s;
+    -webkit-transition: all 1s;
 }
+
+.dark-mode {
+    background-color: black;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -70,3 +78,4 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+/*--------------------------*/

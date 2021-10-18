@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "Home page";
 }
+
+<style type="text/css">
+    .card-img-top {
+    object-fit: scale-down;
+}
+</style>
+
 @await  Component.InvokeAsync("Mention")
 @foreach (var item in Model.Mention)
 {
@@ -27,7 +34,7 @@
                     </div>
                     <div class="card-body">
 
-                        <img src="@Html.DisplayFor(modelItem => item.Image)" />
+                        <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)" />
                         <hr />
 
                         <span style="float: left;">

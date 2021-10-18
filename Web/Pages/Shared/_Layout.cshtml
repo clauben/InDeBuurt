@@ -6,9 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <style type="text/css">
+    body {
+        background-color: powderblue !important;
+        transition: all 1s;
+        -webkit-transition: all 1s;
+    }
+
+    .dark-mode {
+        background-color: black;
+    }
+</style>
 </head>
-<body style="background-color:powderblue;">
+
+<body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/Index">InDeBuurt</a>
@@ -21,19 +37,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#" style="font-weight: bold;">@HttpContextAccessor.HttpContext.User.Identity.Name</a>
                         </li>
-                        <li class="nav-item">
-                            <button type="button" class="btn btn-primary position-relative">
-                                Meldingen
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
-                            </button>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Menu
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Mentions">Profiel</a>
-                                <a class="dropdown-item" href="/UserProfile">Instellingen</a>
+                                <a class="dropdown-item" href="/Mentions">Berichten</a>
+                                <a class="dropdown-item" href="/UserProfile">Gegevens</a>
+                                @*<button onclick="myFunction()">Toggle dark mode</button>*@
                                 <div class="dropdown-divider"></div>
                                 <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Afmelden</a>
                             </div>
@@ -54,7 +65,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-muted">
         <div class="container">
             &copy; 2021 - Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
@@ -74,6 +85,12 @@
     <script>
         if ( window.history.replaceState ) {
           window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+    <script>
+        function myFunction() {
+           var element = document.body;
+           element.classList.toggle("dark-mode");
         }
     </script>
     @await RenderSectionAsync("Scripts", required: false)
