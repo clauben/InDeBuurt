@@ -1,6 +1,8 @@
 ﻿using ApplicationCore.Entities;
 using AutoMapper;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using PublicAPI.Helpers;
@@ -22,20 +24,23 @@ namespace PublicAPI.Controllers
 	{
 		private IMentionService _mentionService;
 		private IMapper _mapper;
+		private readonly IStorageService _storageService;
 		private readonly IOptions<AppSettings> _appSettings;
 
 		public MentionController(
 			IMentionService mentionService, 
-			IMapper mapper, 
+			IMapper mapper,
+			IStorageService storageService,
 			IOptions<AppSettings> appSettings)
 		{
 			_mentionService = mentionService;
 			_mapper = mapper;
+			_storageService = storageService;
 			_appSettings = appSettings;
 		}
 
 		[HttpPost("create")]
-		public IActionResult Create([FromBody] MentionCreateModel model)
+		public IActionResult Create([FromForm] MentionCreateModel model)
 		{
 			var mention = _mapper.Map<Mention>(model);
 			mention.CreateDate = DateTime.UtcNow;
@@ -43,6 +48,7 @@ namespace PublicAPI.Controllers
 			try
 			{
 				_mentionService.Create(mention);
+				_storageService.Upload(model.File);
 				return Ok();
 			}
 			catch (WebException ex)
@@ -55,6 +61,7 @@ namespace PublicAPI.Controllers
 		public IActionResult GetAll()
 		{
 			var mention = _mentionService.GetAll();
+			mention.Select(m => m.Views + 1);
 			var model = _mapper.Map<IList<MentionModel>>(mention);
 			return Ok(model);
 		}

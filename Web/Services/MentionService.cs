@@ -2,8 +2,11 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Web.Interfaces;
@@ -22,11 +25,25 @@ namespace Web.Services
 
 		public async Task Create(CreateMentionViewModel mention)
 		{
-			var response = await _httpClient.PostAsJsonAsync("Mention/create", mention);
-			//var content = new StringContent(JsonConvert.SerializeObject(mention), Encoding.UTF8, "application/json");
-			//var response = await _httpClient.PostAsync("Mention/create", content);
-			var result = response.Content.ReadAsStringAsync().Result;
-			response.EnsureSuccessStatusCode();
+			var fileContent = new StreamContent(mention.File.OpenReadStream())
+			{
+				Headers =
+				{
+					ContentLength = mention.File.Length,
+					ContentType = new MediaTypeHeaderValue(mention.File.ContentType)
+				}
+			};
+
+			var formDataContent = new MultipartFormDataContent();
+			formDataContent.Add(fileContent, "File", mention.File.FileName);          
+			formDataContent.Add(new StringContent(mention.UserID.ToString()), "UserID");
+			formDataContent.Add(new StringContent(mention.Title.ToString()), "Title");
+			formDataContent.Add(new StringContent(mention.Description.ToString()), "Description");
+			formDataContent.Add(new StringContent(mention.MentionCategory.ToString()), "MentionCategory");
+			formDataContent.Add(new StringContent("https://idbopslag.blob.core.windows.net/idb/" + mention.File.FileName), "Image");
+
+			await _httpClient.PostAsync("Mention/create", formDataContent);
+
 		}
 
 		public async Task<MentionViewModel> GetMentionById(int id)
@@ -51,10 +68,8 @@ namespace Web.Services
 		}
 
 		public async Task UpdateMention(MentionViewModel userToUpdate)
-{
+		{
 			var response = await _httpClient.PutAsJsonAsync($"Mention/{userToUpdate.ID}", userToUpdate);
-			//var content = new StringContent(JsonConvert.SerializeObject(userToUpdate), Encoding.UTF8, "application/json");
-			//var response = await _httpClient.PutAsync($"Mention/{userToUpdate.ID}", content);
 			response.EnsureSuccessStatusCode();
 		}
 

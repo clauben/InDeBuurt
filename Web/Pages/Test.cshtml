@@ -1,9 +1,8 @@
 ﻿@page
-@model IndexFeedModel
+@model Web.Pages.TestModel
 @{
-    ViewData["Title"] = "Home page";
 }
-@await  Component.InvokeAsync("Mention")
+
 @foreach (var item in Model.Mention)
 {
     <p>

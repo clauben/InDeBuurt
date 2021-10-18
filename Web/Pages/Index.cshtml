@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+@await  Component.InvokeAsync("Mention")
+@foreach (var item in Model.Mention)
+{
+    <p>
+
+        <div class="row justify-content-md-center">
+            <div class="col-sm-8">
+
+                <div class="card text-center">
+                    <div class="card-header">
+                        <div style="text-align: left;">
+                            @Html.DisplayFor(modelItem => item.Title) |
+                            @Html.DisplayFor(modelItem => item.MentionCategory)
+                            <div>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </div>
+                            <div>
+                            @Html.DisplayFor(modelItem => item.CreateDate)
+                        </div>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+
+                        <img src="@Html.DisplayFor(modelItem => item.Image)" />
+                        <hr />
+
+                        <span style="float: left;">
+                            Likes: @Html.DisplayFor(modelItem => item.Likes)
+                        </span>
+                        <a href="" class="btn btn-primary">leuk</a>
+                        <span style="float: right;">
+                            Views: @Html.DisplayFor(modelItem => item.Views)
+                        </span>
+
+
+                    </div>
+                    <div class="card-footer text-muted">
+
+                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">opmerking</span>
+                            </div>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </p>
+}

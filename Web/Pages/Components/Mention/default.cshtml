@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form  id="mentionform" class="form-horizontal" method="post">
+                <form  id="mentionform" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="hidden" asp-for="UserID" value="@HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserID").Value" class="form-control" placeholder="UserID">
                     </div>
@@ -38,7 +38,7 @@
                         <input asp-for="Description" class="form-control" placeholder="Beschrijving">
                     </div>
                     <div class="form-group">
-                        <input asp-for="Image" class="form-control" placeholder="Afbeelding">
+                        <input type="file" asp-for="File" class="form-control" placeholder="Afbeelding">
                     </div>
                 </form>
             </div>

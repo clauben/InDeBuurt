@@ -20,7 +20,7 @@ img {
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Mention[0].UserID)
+                @Html.DisplayNameFor(model => model.Mention[0].ID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Mention[0].Title)
@@ -46,9 +46,6 @@ img {
             <th>
                 @Html.DisplayNameFor(model => model.Mention[0].LastModified)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mention[0].Status)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -56,7 +53,7 @@ img {
 @foreach (var item in Model.Mention) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.UserID)
+                @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -83,11 +80,11 @@ img {
                 @Html.DisplayFor(modelItem => item.LastModified)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-danger">Edit</a>
+                <form method="post">
+                    <input type="hidden" asp-for="@item.ID" name="id"/>
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
             </td>
         </tr>
 }

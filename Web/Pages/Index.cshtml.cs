@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,13 @@ using Web.ViewModels;
 
 namespace Web.Pages
 {
-	public class IndexFeedModel : PageModel
+	[Authorize]
+	public class IndexModel : PageModel
 	{
 		private readonly HttpClient _httpClient;
 		private readonly IMentionService _mention;
 
-		public IndexFeedModel(HttpClient httpClient, IMentionService mention)
+		public IndexModel(HttpClient httpClient, IMentionService mention)
         {
 			_httpClient = httpClient;
 			_mention = mention;

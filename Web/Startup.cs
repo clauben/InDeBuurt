@@ -40,11 +40,7 @@ namespace Web
 			services.AddDbContext<WebContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("WebContext")));
 			services.AddRazorPages()
-				.AddRazorRuntimeCompilation()
-				.AddRazorPagesOptions(options =>
-				{
-				options.Conventions.AddAreaPageRoute("Auth","/Login", "");
-			});
+				.AddRazorRuntimeCompilation();
 
 			services.AddHttpContextAccessor();
 			services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -66,6 +62,8 @@ namespace Web
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 				.AddCookie(options =>
 				{
+					options.LoginPath = "/auth/login";
+					options.ExpireTimeSpan = TimeSpan.FromDays(7);
 					options.Cookie.HttpOnly = true;
 					options.Cookie.IsEssential = true;
 					options.Cookie.Name = "InDeBuurt";

@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using PublicAPI.Interfaces;
 using PublicAPI.Services;
 using ApplicationCore.Entities;
+using Microsoft.Extensions.Azure;
 
 namespace PublicAPI
 {
@@ -47,6 +48,14 @@ namespace PublicAPI
 			services.AddCors();
 			services.AddControllers();
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+			//Configure AzureBlobService
+			services.AddAzureClients(builder =>
+			{
+				builder.AddBlobServiceClient(Configuration.GetSection("Storage:ConnectionString").Value);
+			});
+
+			services.AddTransient<IStorageService, StorageService>();
 
 			// configure strongly typed settings objects
 			IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");

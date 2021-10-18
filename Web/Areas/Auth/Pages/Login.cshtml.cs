@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
@@ -77,7 +78,7 @@ namespace Web.Areas.Auth.Pages.Login
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                return RedirectToPage("/IndexFeed");
+                return RedirectToPage("/Index");
             }
 
             return Page();

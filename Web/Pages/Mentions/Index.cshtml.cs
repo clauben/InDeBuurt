@@ -12,6 +12,7 @@ using Web.ViewModels;
 
 namespace Web.Pages.Mentions
 {
+    [BindProperties]
     public class IndexModel : PageModel
     {
 		private readonly IMentionService _mention;
@@ -21,12 +22,20 @@ namespace Web.Pages.Mentions
 			_mention = mention;
 		}
 
-        public IList<MentionViewModel> Mention { get;set; }
+        public IList<MentionViewModel> Mention { get; set; }
 
         public async Task OnGetAsync()
         {
             int id = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserID").Value);
             Mention = await _mention.GetMentionByUserId(id);
+        }
+
+        public async Task<IActionResult> OnPostAsync(int id)
+        {
+
+            await _mention.Delete(id);
+
+            return RedirectToPage("./Index");
         }
     }
 }
