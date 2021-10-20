@@ -1,13 +1,6 @@
-﻿using ApplicationCore.Entities;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 using Web.Interfaces;
 using Web.ViewModels;
@@ -35,7 +28,7 @@ namespace Web.Services
 			};
 
 			var formDataContent = new MultipartFormDataContent();
-			formDataContent.Add(fileContent, "File", mention.File.FileName);          
+			formDataContent.Add(fileContent, "File", mention.File.FileName);
 			formDataContent.Add(new StringContent(mention.UserID.ToString()), "UserID");
 			formDataContent.Add(new StringContent(mention.Title.ToString()), "Title");
 			formDataContent.Add(new StringContent(mention.Description.ToString()), "Description");

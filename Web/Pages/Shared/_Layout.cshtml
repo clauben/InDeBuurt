@@ -12,16 +12,16 @@
 
 
     <style type="text/css">
-    body {
-        background-color: powderblue !important;
-        transition: all 1s;
-        -webkit-transition: all 1s;
-    }
+        body {
+            background-color: powderblue !important;
+            transition: all 1s;
+            -webkit-transition: all 1s;
+        }
 
-    .dark-mode {
-        background-color: black;
-    }
-</style>
+        .dark-mode {
+            background-color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,18 +75,21 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
-        $('#confirm').on('click', function (event) {
-
-            $("form.form-horizontal").submit();
-
-            return false;
-        })
+        $(function() {
+            $('#confirm').on('click', function (event) {
+                event.preventDefault();
+                setTimeout(function() {
+                   window.location.reload();
+              },3000);
+                $("form.form-horizontal").submit();
+            });
+        });
     </script>
-    <script>
+    @*    <script>
         if ( window.history.replaceState ) {
-          window.history.replaceState( null, null, window.location.href );
+        window.history.replaceState( null, null, window.location.href );
         }
-    </script>
+        </script>*@
     <script>
         function myFunction() {
            var element = document.body;

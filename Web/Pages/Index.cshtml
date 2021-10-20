@@ -22,7 +22,7 @@
                     <div class="card-header">
                         <div style="text-align: left;">
                             @Html.DisplayFor(modelItem => item.Title) |
-                            @Html.DisplayFor(modelItem => item.MentionCategory)
+                            <span style="font-weight: bold;">@Html.DisplayFor(modelItem => item.MentionCategory)</span>
                             <div>
                                 @Html.DisplayFor(modelItem => item.Description)
                             </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="card-body">
 
-                        <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)" />
+                        <img class="card-img-top" src="@Html.DisplayFor(modelItem => item.Image)"/>
                         <hr />
 
                         <span style="float: left;">

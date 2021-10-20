@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Infrastructure": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Key": "Value",
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}

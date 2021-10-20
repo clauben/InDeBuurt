@@ -1,15 +1,11 @@
-﻿using ApplicationCore.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using Web.Enums;
 
 namespace Web.ViewModels
 {
 	public class UpdateMentionViewModel
-{
+	{
 		public int UserID { get; set; }
 
 		[DataType(DataType.Text)]

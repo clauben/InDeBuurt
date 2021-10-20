@@ -1,11 +1,6 @@
-﻿using ApplicationCore.Entities;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using Web.Enums;
 
 namespace Web.ViewModels
 {

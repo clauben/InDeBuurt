@@ -17,6 +17,9 @@ using PublicAPI.Interfaces;
 using PublicAPI.Services;
 using ApplicationCore.Entities;
 using Microsoft.Extensions.Azure;
+using Azure.Storage.Queues;
+using Azure.Storage.Blobs;
+using Azure.Core.Extensions;
 
 namespace PublicAPI
 {
@@ -139,6 +142,31 @@ namespace PublicAPI
 					pattern: "{controller=Home}/{action=Index}/{id?}");
 				endpoints.MapRazorPages();
 			});
+		}
+	}
+	internal static class StartupExtensions
+	{
+		public static IAzureClientBuilder<BlobServiceClient, BlobClientOptions> AddBlobServiceClient(this AzureClientFactoryBuilder builder, string serviceUriOrConnectionString, bool preferMsi)
+		{
+			if (preferMsi && Uri.TryCreate(serviceUriOrConnectionString, UriKind.Absolute, out Uri serviceUri))
+			{
+				return builder.AddBlobServiceClient(serviceUri);
+			}
+			else
+			{
+				return builder.AddBlobServiceClient(serviceUriOrConnectionString);
+			}
+		}
+		public static IAzureClientBuilder<QueueServiceClient, QueueClientOptions> AddQueueServiceClient(this AzureClientFactoryBuilder builder, string serviceUriOrConnectionString, bool preferMsi)
+		{
+			if (preferMsi && Uri.TryCreate(serviceUriOrConnectionString, UriKind.Absolute, out Uri serviceUri))
+			{
+				return builder.AddQueueServiceClient(serviceUri);
+			}
+			else
+			{
+				return builder.AddQueueServiceClient(serviceUriOrConnectionString);
+			}
 		}
 	}
 }

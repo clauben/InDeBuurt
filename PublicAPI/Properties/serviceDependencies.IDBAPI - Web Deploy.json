@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/publicapidbserver/databases/PublicAPI_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:WebContext",
+      "secretStore": "AzureAppSettings"
+    },
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/idbopslag",
+      "type": "storage.azure",
+      "connectionId": "Storage:ConnectionString",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

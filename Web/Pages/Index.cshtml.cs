@@ -1,12 +1,7 @@
-﻿using ApplicationCore.Entities;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Web.Interfaces;
@@ -21,37 +16,39 @@ namespace Web.Pages
 		private readonly IMentionService _mention;
 
 		public IndexModel(HttpClient httpClient, IMentionService mention)
-        {
+		{
 			_httpClient = httpClient;
 			_mention = mention;
 		}
 
-        public List<MentionViewModel> Mention = new List<MentionViewModel>();
+		public List<MentionViewModel> Mention = new List<MentionViewModel>();
 
 		[BindProperty]
 		public CreateMentionViewModel Update { get; set; } = new CreateMentionViewModel();
 
 		public async Task OnGetAsync()
-        {
+		{
 			//Mention = await _context.Mentions.ToListAsync();
 			var mentions = await _mention.GetMention();
 
-			foreach(MentionViewModel m in mentions)
+			foreach (MentionViewModel m in mentions)
 			{
 				Mention.Add(m);
 			}
-        }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            await _mention.Create(Update);
+			Mention.Reverse();
+		}
 
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+		public async Task<IActionResult> OnPostAsync()
+		{
+			await _mention.Create(Update);
 
-            return Page();
-        }
-    }
+			if (!ModelState.IsValid)
+			{
+				return Page();
+			}
+
+			return RedirectToPage("/index");
+		}
+	}
 }

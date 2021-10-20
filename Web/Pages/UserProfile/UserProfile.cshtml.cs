@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,7 +17,8 @@ using Web.ViewModels;
 
 namespace Web.Pages.UserProfile
 {
-    public class UserProfileModel : PageModel
+	[Authorize]
+	public class UserProfileModel : PageModel
     {
 		private readonly HttpClient _client;
 		private readonly IUserService _userService;

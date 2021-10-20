@@ -1,22 +1,15 @@
-﻿using Infrastruture.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿//using Infrastruture.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Net.Http;
 using System;
 using Web.Helpers;
-using Web.Services;
-using Web.ViewModels;
-using Web.Areas.Auth.ViewModels;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
 using Web.Interfaces;
+using Web.Services;
 
 namespace Web
 {
@@ -32,13 +25,8 @@ namespace Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-			services.AddDatabaseDeveloperPageExceptionFilter();
-			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
-			services.AddDbContext<WebContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("WebContext")));
+			//services.AddDbContext<WebContext>(options =>
+			//		options.UseSqlServer(Configuration.GetConnectionString("WebContext")));
 			services.AddRazorPages()
 				.AddRazorRuntimeCompilation();
 
@@ -48,15 +36,15 @@ namespace Web
 			services.AddTransient<UserApiAuthHandler>();
 
 			services.AddHttpClient<IUserApiAuthService, UserApiAuthService>()
-					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:44327/"));
+					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://idbapi.azurewebsites.net/"));
 
 			services.AddHttpClient<IUserService, UserService>()
-					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:44327/"))
+					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://idbapi.azurewebsites.net/"))
 					.AddHttpMessageHandler<UserApiAuthHandler>();
 
 			services.AddHttpClient<IMentionService, MentionService>()
-					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:44327/"))
-					.AddHttpMessageHandler<UserApiAuthHandler>();	
+					.ConfigureHttpClient(c => c.BaseAddress = new Uri("https://idbapi.azurewebsites.net/"))
+					.AddHttpMessageHandler<UserApiAuthHandler>();
 
 			// Add Authentication services
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

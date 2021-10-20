@@ -1,63 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ApplicationCore.Entities;
-using Infrastruture.Data;
+using System.Threading.Tasks;
 using Web.Interfaces;
 using Web.ViewModels;
 
 namespace Web.Pages.Mentions
 {
-    public class EditModel : PageModel
-    {
+	[Authorize]
+	public class EditModel : PageModel
+	{
 		private readonly IMentionService _mention;
 
 		public EditModel(IMentionService mention)
-        {
+		{
 			_mention = mention;
 		}
 
-        [BindProperty]
-        public UpdateMentionViewModel UpdateMention { get; set; }
+		[BindProperty]
+		public UpdateMentionViewModel UpdateMention { get; set; }
 
-        [BindProperty]
-        public MentionViewModel Mention { get; set; } = new MentionViewModel();
-
-
-        public async Task<IActionResult> OnGetAsync(int id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Mention = await _mention.GetMentionById(id);
-
-            if (Mention == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            await _mention.UpdateMention(Mention);
+		[BindProperty]
+		public MentionViewModel Mention { get; set; } = new MentionViewModel();
 
 
-            return RedirectToPage("./Index");
-        }
-    }
+		public async Task<IActionResult> OnGetAsync(int id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			Mention = await _mention.GetMentionById(id);
+
+			if (Mention == null)
+			{
+				return NotFound();
+			}
+			return Page();
+		}
+
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more details, see https://aka.ms/RazorPagesCRUD.
+		public async Task<IActionResult> OnPostAsync()
+		{
+			if (!ModelState.IsValid)
+			{
+				return Page();
+			}
+
+			await _mention.UpdateMention(Mention);
+
+
+			return RedirectToPage("./Index");
+		}
+	}
 }

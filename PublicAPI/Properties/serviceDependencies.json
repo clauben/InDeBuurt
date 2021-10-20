@@ -3,6 +3,17 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "apis1": {
+      "type": "apis"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:WebContext"
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "Storage:ConnectionString"
     }
   }
 }
